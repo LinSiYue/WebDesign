@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>流星雨</title>
+	<style>
+    	body{margin:0;overflow:hidden;width:100%;}
+    </style>
+</head>
+
+<body>
+	<embed src="C:/Users/lsy/Desktop/bgm.mp3" hidden="true" autostart="true" loop="true">
+	<canvas width=100% height=100% style="background:#000;" id="canvas"></canvas>
+    
+    <script>
+    	var canvas=document.getElementById("canvas");
+		var ctx=canvas.getContext("2d");
+		
+		var s=window.screen;
+		var w=s.width;
+		var h=s.height;
+		
+		//获取window大小
+		canvas.width=w;
+		canvas.height=h;
+		var fontSize=24;//设置文字大小
+		
+		//计算一行多少文字，向下取整
+		var clos=Math.floor(w/fontSize); 
+		//创建一个数组，把clos个文字的y坐标存起来
+		var drops=[];
+		var str="QWERTYOAJSKDLNJLHALKHNqqlkwjqwohebakjdhiuaolihio?@##$%!%$@%";
+		//var str="淑敏每天都开心呀！";
+		for(var i=0;i<clos;i++)
+		{
+			drops.push(0);
+		}
+		console.log(drops);
+		//绘制文字
+		function drawString()
+		{
+			ctx.fillStyle="rgba(0,0,0,0.05)";
+			ctx.fillRect(0,0,w,h);
+			ctx.font="600 "+fontSize+"px 微软软黑";//加粗 大小 字体
+			//ctx.fillStyle=rgbaColor();
+			ctx.fillStyle="green";
+			for(var i=0;i<clos;i++)
+			{
+				var x=i*fontSize;
+				var y=drops[i]*fontSize;
+				ctx.fillText(str[Math.floor(Math.random()*str.length)],x,y);
+				//ctx.fillText(str[drops[i]%9],x,y);
+
+				if(y>h&&Math.random()>0.998)
+				{
+					drops[i]=0;
+				}
+				drops[i]++;
+			}
+		}
+		setInterval(drawString,30);
+
+		function rgbaColor()
+		{
+			var r=Math.floor(Math.random()*256);
+			var g=Math.floor(Math.random()*256);
+			var b=Math.floor(Math.random()*256);
+			return "rgb("+r+","+g+","+b+")";
+		}
+
+    </script>
+    
+</body>
+</html>
